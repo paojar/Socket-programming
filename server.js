@@ -2,16 +2,9 @@ const net = require('net')
 
 var players = []
 var gameState = 0
-var playerState = 0
+
 
 net.createServer((socket) => {
-
-    if(gameState == 1)
-    {
-        console.log('destroy')
-        socket.destroy()
-        return
-    }
 
     socket.on('data', (data) => {
         var msg = data.toString()
@@ -56,7 +49,7 @@ net.createServer((socket) => {
                 if(getReadyPlayer() == 2)
                 {
                     console.log('All players are ready.')
-                    gameState = 2
+                    gameState = 1
                     
                     announce('Type rock, paper or scissor')
                 }
@@ -68,7 +61,7 @@ net.createServer((socket) => {
             }
         }
 
-        if(gameState == 2)
+        if(gameState == 1)
         {
             if(msg == 'rock' || msg == 'paper' || msg == 'scissor'){
                 player['attack'] = msg
